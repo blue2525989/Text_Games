@@ -186,7 +186,7 @@ int main()
 						cin>>turnCol;
 						// sentinel incase spot already taken
 						while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
-							cout<< "\nplease neter a new row and col, current choice is taken."<<endl;
+							cout<< "\nplease enter a new row and col, current choice is taken."<<endl;
 							cout<<"enter row."<<endl;
 							cin>>turnRow;
 							cout<< "enter column."<<endl;
