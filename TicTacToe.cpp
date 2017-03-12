@@ -120,7 +120,6 @@ void resetBoard()
 // place an x or o
 void addSpot(char move, int row, int col)
 {
-	// this is how you add a new char to the board
 	board[row][col] = move;
 }
 
@@ -160,6 +159,14 @@ int main()
 						cin>>turnRow;
 						cout<< "enter column."<<endl;
 						cin>>turnCol;
+						// sentinel incase spot already taken
+						while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
+							cout<< "\nplease neter a new row and col, current choice is taken."<<endl;
+							cout<<"enter row."<<endl;
+							cin>>turnRow;
+							cout<< "enter column."<<endl;
+							cin>>turnCol;
+						}
 						addSpot('x', turnRow, turnCol);
 						displayBoard();
 						score = checkCombo('x');
@@ -177,6 +184,14 @@ int main()
 						cin>>turnRow;
 						cout<< "enter column."<<endl;
 						cin>>turnCol;
+						// sentinel incase spot already taken
+						while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
+							cout<< "\nplease neter a new row and col, current choice is taken."<<endl;
+							cout<<"enter row."<<endl;
+							cin>>turnRow;
+							cout<< "enter column."<<endl;
+							cin>>turnCol;
+						}
 						addSpot('o', turnRow, turnCol);
 						displayBoard();
 						score = checkCombo('o');
