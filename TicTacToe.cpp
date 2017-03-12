@@ -1,5 +1,5 @@
 /*
- * TictacToe.cpp
+ * TicTacToe.cpp
  *
  *  Created on: Mar 11, 2017
  *      Author: Jason
@@ -89,7 +89,7 @@ int checkCombo(char c)
 			}
 		}
 	}
-	// else return 0 left out of else clause for scope reasons
+	// else return 0, left out of else clause for scope reasons
 	return 0;
 }
 
@@ -117,7 +117,7 @@ void resetBoard()
 	}
 }
 
-// place an x or o
+// place an x or o in a specific row and column
 void addSpot(char move, int row, int col)
 {
 	board[row][col] = move;
@@ -130,116 +130,148 @@ int main()
 	while (choice == "y")
 	{
 		// to play or not to play is the question here
-		cout<<"Would you like to play tic-tac-toe? [y/n] "<<endl;
+		cout<< "Would you like to play tic-tac-toe? [y/n] "<<endl;
 		cin>> choice;
+
 		// sentinel to make answer be y or n
 		while (choice != "y" && choice != "n")
 		{
-			cout<<"Would you like to play tic-tac-toe? [y/n] "<<endl;
+			// ask if player wants to play game or not
+			cout<< "Would you like to play tic-tac-toe? [y/n] "<<endl;
 			cin>> choice;
 		}
 
 		// if y is entered
 		if (choice == "y") {
+
 			// reset all flags used
 			gameOver = false;
 			xWin = 0;
+
 			// reset all spaces on board
 			resetBoard();
+
 			// display board
 			displayBoard();
+
 			// variable for taking turns
 			int i = 0;
+
 			// while gameover is false
 			while (gameOver == false) {
-					// even numbers for x's turn
-					if (i%2==0) {
-						cout<<"X's turn, please enter the row followed by column."<<endl;
-						cout<<"enter row."<<endl;
-						cin>>turnRow;
+
+				// even numbers for x's turn
+				if (i%2==0) {
+					// ask for col and row
+					cout<< "X's turn, please enter the row followed by column."<<endl;
+					cout<< "enter row."<<endl;
+					cin>> turnRow;
+					cout<< "enter column."<<endl;
+					cin>> turnCol;
+
+					// sentinel incase spot already taken
+					while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
+						cout<< "\nplease neter a new row and col, current choice is taken."<<endl;
+						// ask for col, row again
+						cout<< "enter row."<<endl;
+						cin>> turnRow;
 						cout<< "enter column."<<endl;
-						cin>>turnCol;
-						// sentinel incase spot already taken
-						while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
-							cout<< "\nplease neter a new row and col, current choice is taken."<<endl;
-							cout<<"enter row."<<endl;
-							cin>>turnRow;
-							cout<< "enter column."<<endl;
-							cin>>turnCol;
-						}
-						addSpot('x', turnRow, turnCol);
-						displayBoard();
-						score = checkCombo('x');
-						++i;
-						// if scores a combo
-						if (score == 1) {
-							xWin = 1;
-							gameOver = true;
-						}
+						cin>> turnCol;
 					}
-					// odd numbers are y's turn
-					else {
-						cout<<"Y's turn, please enter the row followed by column."<<endl;
-						cout<<"enter row."<<endl;
-						cin>>turnRow;
-						cout<< "enter column."<<endl;
-						cin>>turnCol;
-						// sentinel incase spot already taken
-						while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
-							cout<< "\nplease enter a new row and col, current choice is taken."<<endl;
-							cout<<"enter row."<<endl;
-							cin>>turnRow;
-							cout<< "enter column."<<endl;
-							cin>>turnCol;
-						}
-						addSpot('o', turnRow, turnCol);
-						displayBoard();
-						score = checkCombo('o');
-						++i;
-						// if scores a combo
-						if (score == 1) {
-							xWin = 2;
-							gameOver = true;
-						}
-					}
-				}
-				// check for score again
-				for (int i = 0; i < 1; i++) {
+
+					// place x in spot
+					addSpot('x', turnRow, turnCol);
+
+					// display updated board
+					displayBoard();
+
+					// increment i
+					++i;
+
+					// check for combos
 					score = checkCombo('x');
 					// if scores a combo
 					if (score == 1) {
 						xWin = 1;
 						gameOver = true;
 					}
+				}
+
+				// odd numbers are o's turn
+				else {
+					// ask for col and row
+					cout<<"O's turn, please enter the row followed by column."<<endl;
+					cout<<"enter row."<<endl;
+					cin>>turnRow;
+					cout<< "enter column."<<endl;
+					cin>>turnCol;
+
+					// sentinel incase spot already taken
+					while (board[turnRow][turnCol] == 'x' || board[turnRow][turnCol] == 'o') {
+						cout<< "\nplease enter a new row and col, current choice is taken."<<endl;
+						// ask for col, row again
+						cout<<"enter row."<<endl;
+						cin>>turnRow;
+						cout<< "enter column."<<endl;
+						cin>>turnCol;
+					}
+
+					// place o in spot
+					addSpot('o', turnRow, turnCol);
+
+					// display updated board
+					displayBoard();
+
+					// increment i
+					++i;
+
+					// check for combos
 					score = checkCombo('o');
+					// if scores a combo
 					if (score == 1) {
 						xWin = 2;
 						gameOver = true;
 					}
 				}
+			}
 
-				// if x wins
-				if (xWin == 1) {
-					cout<<"\nX won the game, good job player 1!!\n" <<endl;
-					//break;
+			// use a for loop to double check the score again
+			for (int i = 0; i < 1; i++) {
+				// checks if x has a combo
+				score = checkCombo('x');
+				// if scores a combo
+				if (score == 1) {
+					xWin = 1;
+					gameOver = true;
 				}
-				// if y wins
-				else if (xWin == 2) {
-					cout<<"\nY won the game, good job player 2!!\n" <<endl;
-					//break;
-				}
-				// if manage to get here with no score
-				else {
-					cout<<"Game was never started.\ny"<<endl;
-					//break;
+				// checks if o has a combo
+				score = checkCombo('o');
+				if (score == 1) {
+					xWin = 2;
+					gameOver = true;
 				}
 			}
-		// if no is entered game over
+
+			// if x wins
+			if (xWin == 1) {
+				cout<<"\nX won the game, good job player 1!!\n" <<endl;
+				//break;
+			}
+
+			// if y wins
+			else if (xWin == 2) {
+				cout<<"\nO won the game, good job player 2!!\n" <<endl;
+				//break;
+			}
+		}
+
+		// if no is entered, game over
 		else if (choice == "n") {
 			cout<< "Good bye."<<endl;
 			break;
 		}
 	}
+
 	// exit game
 	return 0;
 }
