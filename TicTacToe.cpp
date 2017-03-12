@@ -203,19 +203,34 @@ int main()
 						}
 					}
 				}
+				// check for score again
+				for (int i = 0; i < 1; i++) {
+					score = checkCombo('x');
+					// if scores a combo
+					if (score == 1) {
+						xWin = 1;
+						gameOver = true;
+					}
+					score = checkCombo('o');
+					if (score == 1) {
+						xWin = 2;
+						gameOver = true;
+					}
+				}
+
 				// if x wins
 				if (xWin == 1) {
-					cout<<"\nX won the game, good job player 1!!" <<endl;
+					cout<<"\nX won the game, good job player 1!!\n" <<endl;
 					//break;
 				}
 				// if y wins
 				else if (xWin == 2) {
-					cout<<"\nY won the game, good job player 2!!" <<endl;
+					cout<<"\nY won the game, good job player 2!!\n" <<endl;
 					//break;
 				}
 				// if manage to get here with no score
 				else {
-					cout<<"Game was never started."<<endl;
+					cout<<"Game was never started.\ny"<<endl;
 					//break;
 				}
 			}
