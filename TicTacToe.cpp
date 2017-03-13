@@ -73,7 +73,7 @@ int checkCombo(char c)
 			}
 		}
 	}
-	// diagonal 1
+	// diagonal 1 - not working currently
 	else if (board[0][0] == c) {
 		if (board[1][1] == c) {
 			if (board[2][2] == c) {
@@ -81,7 +81,7 @@ int checkCombo(char c)
 			}
 		}
 	}
-	// diagonal 2
+	// diagonal 2 -not working currently
 	else if (board[0][2] == c) {
 		if (board[1][1] == c) {
 			if (board[2][0] == c) {
@@ -194,6 +194,10 @@ int main()
 					if (score == 1) {
 						xWin = 1;
 						gameOver = true;
+						break;
+					}
+					else if (i > 8) {
+						break;
 					}
 				}
 
@@ -231,6 +235,10 @@ int main()
 					if (score == 1) {
 						xWin = 2;
 						gameOver = true;
+						break;
+					}
+					else if (i > 8) {
+						break;
 					}
 				}
 			}
@@ -243,12 +251,14 @@ int main()
 				if (score == 1) {
 					xWin = 1;
 					gameOver = true;
+					break;
 				}
 				// checks if o has a combo
 				score = checkCombo('o');
 				if (score == 1) {
 					xWin = 2;
 					gameOver = true;
+					break;
 				}
 			}
 
@@ -262,6 +272,10 @@ int main()
 			else if (xWin == 2) {
 				cout<<"\nO won the game, good job player 2!!\n" <<endl;
 				//break;
+			}
+			// if no winner
+			else if (xWin == 0){
+				cout<<"\nNobody won the game.\n";
 			}
 		}
 
