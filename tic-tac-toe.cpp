@@ -1,5 +1,5 @@
 /*
- * TicTacToe.cpp
+ * tic-tac-toe.cpp
  *
  *  Created on: Mar 11, 2017
  *      Author: Jason
@@ -18,10 +18,10 @@ int turnRow, turnCol;
 const int ROWS = 3;
 const int COLUMNS = 3;
 char board[ROWS][COLUMNS] = { {'+', '+', '+'},
-								{'+', '+', '+'},
-								{'+', '+', '+'} };
+			        {'+', '+', '+'},
+                        	{'+', '+', '+'} };
 
-// checks for eight different combos
+// checks for vertical and horizontal combos
 int checkCombo(char c)
 {
 	// go through the board for char c
@@ -73,15 +73,21 @@ int checkCombo(char c)
 			}
 		}
 	}
-	// diagonal 1 - not working currently
-	else if (board[0][0] == c) {
+	// else return 0, left out of else clause for scope reasons
+	return 0;
+}
+
+// check diagonal
+int checkDiagonal(char c)
+{
+	// stub this out tomorrow
+	if (board[0][0] == c) {
 		if (board[1][1] == c) {
 			if (board[2][2] == c) {
 				return 1;
 			}
 		}
 	}
-	// diagonal 2 -not working currently
 	else if (board[0][2] == c) {
 		if (board[1][1] == c) {
 			if (board[2][0] == c) {
@@ -89,7 +95,6 @@ int checkCombo(char c)
 			}
 		}
 	}
-	// else return 0, left out of else clause for scope reasons
 	return 0;
 }
 
@@ -190,8 +195,9 @@ int main()
 
 					// check for combos
 					score = checkCombo('x');
+					score += checkDiagonal('x');
 					// if scores a combo
-					if (score == 1) {
+					if (score >= 1) {
 						xWin = 1;
 						gameOver = true;
 						break;
@@ -231,8 +237,9 @@ int main()
 
 					// check for combos
 					score = checkCombo('o');
+					score += checkDiagonal('o');
 					// if scores a combo
-					if (score == 1) {
+					if (score >= 1) {
 						xWin = 2;
 						gameOver = true;
 						break;
