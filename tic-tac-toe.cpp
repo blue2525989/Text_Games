@@ -1,5 +1,5 @@
 /*
- * tic-tac-toe.cpp
+ * TicTacToe.cpp
  *
  *  Created on: Mar 11, 2017
  *      Author: Jason
@@ -18,115 +18,17 @@ int turnRow, turnCol;
 const int ROWS = 3;
 const int COLUMNS = 3;
 char board[ROWS][COLUMNS] = { {'+', '+', '+'},
-			        {'+', '+', '+'},
-                        	{'+', '+', '+'} };
+								{'+', '+', '+'},
+								{'+', '+', '+'} };
 
-// checks for vertical and horizontal combos
-int checkCombo(char c)
-{
-	// go through the board for char c
-	// row 0 across
-	if (board[0][0] == c) {
-		if (board[0][1] == c) {
-			if (board[0][2] == c) {
-				return 1;
-			}
-		}
-	}
-	// row 1 across
-	else if (board[1][0] == c) {
-		if (board[1][1] == c) {
-			if (board[1][2] == c) {
-				return 1;
-			}
-		}
-	}
-	// row 2 across
-	else if (board[2][0] == c) {
-		if (board[2][1] == c) {
-			if (board[2][2] == c) {
-				return 1;
-			}
-		}
-	}
-	// col 0 down
-	else if (board[0][0] == c) {
-		if (board[1][0] == c) {
-			if (board[2][0] == c) {
-				return 1;
-			}
-		}
-	}
-	// col 1 down
-	else if (board[0][1] == c) {
-		if (board[1][1] == c) {
-			if (board[2][1] == c) {
-				return 1;
-			}
-		}
-	}
-	// col 2 down
-	else if (board[0][2] == c) {
-		if (board[1][2] == c) {
-			if (board[2][2] == c) {
-				return 1;
-			}
-		}
-	}
-	// else return 0, left out of else clause for scope reasons
-	return 0;
-}
+int checkCombo(char c);
 
-// check diagonal
-int checkDiagonal(char c)
-{
-	// stub this out tomorrow
-	if (board[0][0] == c) {
-		if (board[1][1] == c) {
-			if (board[2][2] == c) {
-				return 1;
-			}
-		}
-	}
-	else if (board[0][2] == c) {
-		if (board[1][1] == c) {
-			if (board[2][0] == c) {
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
+void displayBoard();
 
-// displays the updated board
-void displayBoard()
-{
-	// display the board
-	cout<< "Here's the tic-tac-toe board:\n"<<endl;
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLUMNS; j++) {
-			cout<< board[i][j];
-		}
-		cout<<endl;
-	}
-	cout<<endl;
-}
+void resetBoard();
 
-// resets the board for a new game
-void resetBoard()
-{
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLUMNS; j++) {
-			board[i][j] = '+';
-		}
-	}
-}
+void addSpot(char move, int row, int col);
 
-// place an x or o in a specific row and column
-void addSpot(char move, int row, int col)
-{
-	board[row][col] = move;
-}
 
 /* MAIN METHOD */
 int main()
@@ -195,9 +97,8 @@ int main()
 
 					// check for combos
 					score = checkCombo('x');
-					score += checkDiagonal('x');
 					// if scores a combo
-					if (score >= 1) {
+					if (score == 1) {
 						xWin = 1;
 						gameOver = true;
 						break;
@@ -237,9 +138,8 @@ int main()
 
 					// check for combos
 					score = checkCombo('o');
-					score += checkDiagonal('o');
 					// if scores a combo
-					if (score >= 1) {
+					if (score == 1) {
 						xWin = 2;
 						gameOver = true;
 						break;
@@ -296,3 +196,107 @@ int main()
 	// exit game
 	return 0;
 }
+
+
+// checks for eight different combos
+int checkCombo(char c)
+{
+	// go through the board for char c
+	// row 0 across
+	if (board[0][0] == c) {
+		if (board[0][1] == c) {
+			if (board[0][2] == c) {
+				return 1;
+			}
+		}
+	}
+	// row 1 across
+	else if (board[1][0] == c) {
+		if (board[1][1] == c) {
+			if (board[1][2] == c) {
+				return 1;
+			}
+		}
+	}
+	// row 2 across
+	else if (board[2][0] == c) {
+		if (board[2][1] == c) {
+			if (board[2][2] == c) {
+				return 1;
+			}
+		}
+	}
+	// col 0 down
+	else if (board[0][0] == c) {
+		if (board[1][0] == c) {
+			if (board[2][0] == c) {
+				return 1;
+			}
+		}
+	}
+	// col 1 down
+	else if (board[0][1] == c) {
+		if (board[1][1] == c) {
+			if (board[2][1] == c) {
+				return 1;
+			}
+		}
+	}
+	// col 2 down
+	else if (board[0][2] == c) {
+		if (board[1][2] == c) {
+			if (board[2][2] == c) {
+				return 1;
+			}
+		}
+	}
+	// diagonal 1 - not working currently
+	else if (board[0][0] == c) {
+		if (board[1][1] == c) {
+			if (board[2][2] == c) {
+				return 1;
+			}
+		}
+	}
+	// diagonal 2 -not working currently
+	else if (board[0][2] == c) {
+		if (board[1][1] == c) {
+			if (board[2][0] == c) {
+				return 1;
+			}
+		}
+	}
+	// else return 0, left out of else clause for scope reasons
+	return 0;
+}
+
+// displays the updated board
+void displayBoard()
+{
+	// display the board
+	cout<< "Here's the tic-tac-toe board:\n"<<endl;
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			cout<< board[i][j];
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+// resets the board for a new game
+void resetBoard()
+{
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			board[i][j] = '+';
+		}
+	}
+}
+
+// place an x or o in a specific row and column
+void addSpot(char move, int row, int col)
+{
+	board[row][col] = move;
+}
+
